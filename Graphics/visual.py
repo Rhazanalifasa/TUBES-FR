@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt;
-import pandas as pd;
+# import pandas as pd;
 
 def initiate(xLabel:str, yLabel:str, title:str):
     fig, ax = plt.subplots();
