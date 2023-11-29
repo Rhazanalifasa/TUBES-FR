@@ -6,7 +6,7 @@ def log(x):
 def exp(x):
     return math.exp(x)
 
-def Rs_VB(API, T, P, Tsep, Psep, Pb, Pressure):
+def Rs_VB(API, T, P, Tsep, Psep, Pb, Pressure): # Gas Oil Ratio
     SG = 141.5 / (API + 131.5)
     if P > Pb:
         Pressure = Pb

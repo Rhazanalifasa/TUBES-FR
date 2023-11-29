@@ -1,17 +1,7 @@
 import sys
 sys.path.append('C:\\Users\\daffa\\OneDrive\\Documents\\TUBADAG FR\\Tubes\\')
 
-from Tubes.Bo_Standing import Bo_Standing;
-from Tubes.Co_VB import Co_VB;
-from Tubes.MIU_dan_MIU_VB import Miu, Miu_DO, Miu_VB;
-from Tubes.Rho_Standard import Rho_Standard;
-from Tubes.Rho_Standing import Rho_Standing;
-from Tubes.Rs_Glasso import Rs_Glaso;
-from Tubes.Rs_VB import Rs_VB;
-from Brine_Prop import BW, BWSat, RSW, RhoW, MiuWBeggs, MiuWMcCain, CW;
-from Critical_Prop import Tc_GC, Tc_NG, Tpcz, Tpr, Pc_GC, Pc_NG, Ppcz, Ppr;
-from Gas_Prop import Bg, RhoG, MiuG, Cg;
-from Z_fac import F_rho_r, df_rho_r, Z_Beggs, Z_DAK, Z_hy, Fy;
+from Calculation.Bo_Standing import Bo_Standing;
 
 def calculate_Bo_Standing():
     ST = float(input("Enter Separator Temperature:  ")) #Separator Temperature(Tsep)
