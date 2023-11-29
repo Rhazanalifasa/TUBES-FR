@@ -11,8 +11,4 @@ def showGraphic():
     plt.legend();
     plt.grid(True);
     plt.show();
-    
-def cubic_graphic(x:list, y:list, title:str, xLabel:str, yLabel:str):
-    initiate(xLabel, yLabel, title);
-    plt.plot(x, y);
-    showGraphic();
+
