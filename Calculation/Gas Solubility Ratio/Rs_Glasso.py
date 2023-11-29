@@ -2,7 +2,7 @@ import math
 def log(x):
     return (math.log(x,10) / math.log(10,10))
 
-def Rs_Glaso(API , T , P , Pb ): 
+def Rs_Glaso(API , T , P , Pb ): # Gas-Oil Ratio
     SG = 141.5 / (API + 131.5) 
     if P > Pb:
         Pressure = Pb
@@ -12,5 +12,3 @@ def Rs_Glaso(API , T , P , Pb ):
     Rs_Glaso = SG * ((((API ** 0.989) / ((T) ** 0.172)) * Pbubble) ** 1.2255)
     
     return Rs_Glaso
-
-print(Rs_Glaso(1,2,3,4))
