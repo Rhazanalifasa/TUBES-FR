@@ -1,6 +1,4 @@
 import math
-import pandas;
-
 
 def F_rho_r(Ppr, Tpr, Rho_r) :
     A1 = 0.3265
@@ -34,7 +32,7 @@ def Z_DAK(Tpr, Ppr ):
         galat = abs(rho2 - rho1)
         rho1 = rho2
     Z_DAK = 0.27 * Ppr / (rho1 * Tpr)
-    return
+    return Z_DAK;
 
 
 def Fy(Tpr, Ppr, Yt ): 
@@ -63,3 +61,43 @@ def Z_Beggs(Tpr , Ppr ):
     C = 0.132 - 0.32 * math.log(Tpr)
     D = 10**(0.3016 - 0.49 * Tpr + 0.1825 * Tpr ** 2)
     return A + ((1 - A) / math.exp(B)) + C * Ppr ** D
+
+# Z-Dranchuk Abou Kassem
+def DranchukAbouKassem_(Ppr, Tpr):
+    A1 = 0.3265
+    A2 = -1.07
+    A3 = -0.5339
+    A4 = 0.01569
+    A5 = -0.05165
+    A6 = 0.5475
+    A7 = -0.7361
+    A8 = 0.1844
+    A9 = 0.1056
+    A10 = 0.6134
+    A11 = 0.7210
+
+    R1 = A1 + A2/Tpr + A3/(Tpr**3) + A4/(Tpr**4) + A5/(Tpr**5)
+    R2 = 0.27*Ppr/Tpr
+    R3 = A6 + A7/Tpr + A8/(Tpr**2)
+    R4 = A9*(A7/Tpr + A8/Tpr**2)
+    R5 = A10/(Tpr**3)
+
+    f = lambda y: 1 + R1*y - R2/y + R3*y**2 - R4*y**5 + (R5*y**2 * (1 + A11*y**2) * math.exp(-A11*y**2))
+    y0 = R1 * R4
+    rho_r = newton_raphson(f, y0)
+
+    Z = 0.27 * Ppr / (rho_r * Tpr)
+
+    return Z
+
+# newton raphson numeric method
+def newton_raphson(f, x):
+	tolerance = 1e-12
+
+	f_prime = (f(x+1e-6)-f(x))/1e-6
+	x = x - f(x)/f_prime
+
+	if abs(f(x)) < tolerance:
+		return x
+	else:
+		return newton_raphson(f,x)
