@@ -61,7 +61,7 @@ def mainLoop():
             
     return 0;
 
-# from Graphics_and_Table.visual import *;
+
 def enterGraphicsSection():
     print("This is graphics section\n");
 
@@ -69,7 +69,7 @@ def enterGraphicsSection():
 def enterCalculatorSection():
     print("This is calculator section\n");
 
-# from Graphics_and_Table.table import *;
+
 def enterTableSection():
     print("This is table section\n");
 
