@@ -34,7 +34,7 @@ import colorama;
 colorama.init();
 title = figlet_format("PVT Calculator");
 print(colorama.Fore.RED + title); print(colorama.Style.RESET_ALL);
-def showMenu():
+def showMainMenu():
     print(colorama.Fore.GREEN + "[1]", colorama.Fore.CYAN + "PVT Calculator");
     print(colorama.Fore.GREEN + "[2]", colorama.Fore.CYAN + "Graphics");
     print(colorama.Fore.GREEN + "[3]", colorama.Fore.CYAN + "PVT Table");
@@ -45,7 +45,7 @@ def showMenu():
 # THE FUNCTIONS BELOW IS TEMPORARY
 def mainLoop():
     while True:
-        showMenu();
+        showMainMenu();
         userInput = int(input("Enter your choice: "));
         if userInput == 1:
             enterCalculatorSection();
