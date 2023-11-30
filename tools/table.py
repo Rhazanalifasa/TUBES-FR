@@ -1,7 +1,5 @@
-from tabulate import tabulate;
+import os;
+import pandas as pd;
 import numpy as np;
+from openpyxl import load_workbook;
 
-headers = ["Name", "Age", "Sex"];
-rows = np.array([["John", "Afdinal"], [12, 20], ["Male", "Male"]]);
-
-print(tabulate(rows, headers, tablefmt='fancy_grid', showindex='always'));

@@ -1,14 +1,17 @@
 import matplotlib.pyplot as plt;
-# import pandas as pd;
 
-def initiate(xLabel:str, yLabel:str, title:str):
-    fig, ax = plt.subplots();
-    ax.set_title(title);
-    ax.set_xlabel(xLabel);
-    ax.set_ylabel(yLabel);
-
-def showGraphic():
-    plt.legend();
-    plt.grid(True);
-    plt.show();
-
+def addGraphFunc(func):
+    def wrapper(title, xLabel, yLabel, xValue, yValue):
+        func(title, xLabel, yLabel, xValue, yValue);
+        plt.style.use('fast');
+        plt.grid(True);
+        plt.show();
+        
+    return wrapper;
+        
+@addGraphFunc
+def createGraph(title, xLabel, yLabel, xValue, yValue):
+    plt.title(title);
+    plt.xlabel(xLabel);
+    plt.ylabel(yLabel);
+    plt.plot(xValue, yValue);
