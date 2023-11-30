@@ -4,11 +4,15 @@ import sys;
 sys.path.append('C:\\Tubes FR\\TUBES-FR\\');
 
 colorama.init();
-title = figlet_format("Calculator");
-print(colorama.Fore.MAGENTA + title); print(colorama.Style.RESET_ALL);
+def showTittle():
+    
+    title = figlet_format("Calculator");
+    print(colorama.Fore.MAGENTA + title); print(colorama.Style.RESET_ALL);
 
 ##### Calculator MAINLOOP #####
 def calculatorLoop():
+    
+    showTittle();
     userInput = float(input(colorama.Fore.LIGHTCYAN_EX + "Enter the pressure value: ")); print("\n");
     print(colorama.Fore.YELLOW + f"CONDITION: {determineConditions(userInput)}"); print(colorama.Style.RESET_ALL);
     calculateCriticalProperties(userInput);
@@ -17,13 +21,16 @@ def calculatorLoop():
 ##### PROPERTIES #####
 from Calculation.Critical_prop import *;
 def calculateCriticalProperties(pressure:float):
-    corr = input(colorama.Fore.LIGHTRED_EX + "Enter the correlation name: ");
+    # Input the required data
+    corr = input(colorama.Fore.WHITE + "Enter the correlation name: ");
     gas_SG = float(input("Enter gas specific gravity: "));
     temperature = float(input("Enter the temperature: "))
     M_CO2 = float(input("Enter CO2 mol: "));
     M_H2S = float(input("Enter H2S mol: "));
     M_N2 = float(input("Enter N2 mol: "));
     
+    # CRITICAL PROPERTIES
+    print(colorama.Fore.LIGHTRED_EX, "\n");
     Ppc_Value = Ppc_(gas_SG, corr); print(f"Ppc: {Ppc_Value} PSIA");
     Tpc_Value = Tpc_(gas_SG, corr); print(f"Tpc: {Tpc_Value} Rankine");
     
@@ -32,8 +39,11 @@ def calculateCriticalProperties(pressure:float):
     
     Tpr_Value = Tpr(temperature, Tpc_Value); print(f"Tpr Value: {Tpr_Value}");
     Ppr_Value = Ppr(pressure, Ppc_Value); print(f"Ppr Value: {Ppr_Value}");
-    
-    
+
+from Calculation.Gas_Prop import *;
+def calculateGasProperties(pressure:float):
+    # Input the required data
+    pass; 
     
     
 
@@ -42,7 +52,4 @@ def determineConditions(pressure:float) -> str:
         return 'Undersaturated'
     else:
         return 'Saturated'
-    
-
-calculatorLoop();
     

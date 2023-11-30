@@ -65,9 +65,11 @@ def mainLoop():
 def enterGraphicsSection():
     print("This is graphics section\n");
 
-
+from tools.calculator import calculatorLoop;
 def enterCalculatorSection():
     print("This is calculator section\n");
+    
+    calculatorLoop();
 
 
 def enterTableSection():
