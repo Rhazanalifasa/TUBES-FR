@@ -35,7 +35,7 @@ with pd.ExcelWriter('PVT_Table.xlsx') as writer:
         
 def openExcelApp():
     showTableTittle();
-    excel_file_path = 'C:\\Tubes FR\\TUBES-FR\\PVT_Table.xlsx'
+    excel_file_path = 'C:\\Tubes FR\\TUBES-FR\\PVT_Table.xlsx';
     userInput = input(colorama.Fore.CYAN + "Open Excel? [yes/no]").lower();
     
     if userInput == 'yes':
@@ -43,8 +43,12 @@ def openExcelApp():
             workbook = load_workbook(excel_file_path);
             workbook.save(excel_file_path);
         
-            os.system('start excel.exe "%s"' %excel_file_path);
+            try:
+                os.system('start excel.exe "%s"' %excel_file_path);
+                print(colorama.Fore.BLUE + "Successfully opened the file!\n");
+            except:
+                print(colorama.Fore.RED + "Something went wrong!\n")
         else:
-            print(colorama.Fore.RED + "Something went wrong! File not found!");
+            print(colorama.Fore.RED + "File not found!\n");
     else:
         print("Good bye then!\n");
