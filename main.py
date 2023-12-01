@@ -1,3 +1,7 @@
+from tools import visual, table, calculator;
+from pyfiglet import figlet_format;
+import colorama;
+
 oilProperties = {
     # property: correlations
     "Bo_Sat": "Standing",
@@ -28,9 +32,6 @@ brineProperties = {
 }
 
 ######### Initiate Menu ##########
-from pyfiglet import figlet_format;
-import colorama;
-
 colorama.init();
 title = figlet_format("PVT Calculator");
 print(colorama.Fore.RED + title); print(colorama.Style.RESET_ALL);
@@ -48,11 +49,11 @@ def mainLoop():
         showMainMenu();
         userInput = int(input("Enter your choice: "));
         if userInput == 1:
-            enterCalculatorSection();
+            calculator.calculatorLoop();
         elif userInput == 2:
-            enterGraphicsSection();
+            visual.createGraph();
         elif userInput == 3:
-            enterTableSection();
+            table.openExcelApp();
         elif userInput == 4:
             print(colorama.Fore.GREEN + "Thanks for using this shit. Bye then!");
             break;
@@ -60,22 +61,6 @@ def mainLoop():
             print("Invalid input!");
             
     return 0;
-
-
-def enterGraphicsSection():
-    print("This is graphics section\n");
-
-from tools.calculator import calculatorLoop;
-def enterCalculatorSection():
-    print("This is calculator section\n");
-    
-    calculatorLoop();
-
-from tools.table import openExcelApp;
-def enterTableSection():
-    print("This is table section\n");
-    
-    openExcelApp();
     
 
 # MAIN LOOPING

@@ -38,7 +38,7 @@ def calculateCriticalProperties(pressure:float):
     Ppcz_Value = Ppcz(Ppc_Value, M_CO2, M_H2S, M_N2); print(f"Ppcz Value: {Ppcz_Value} ");
     
     Tpr_Value = Tpr(temperature, Tpc_Value); print(f"Tpr Value: {Tpr_Value}");
-    Ppr_Value = Ppr(pressure, Ppc_Value); print(f"Ppr Value: {Ppr_Value}");
+    Ppr_Value = Ppr(pressure, Ppc_Value); print(f"Ppr Value: {Ppr_Value}\n");
 
 from Properties.Gas_Prop import *;
 def calculateGasProperties(pressure:float):

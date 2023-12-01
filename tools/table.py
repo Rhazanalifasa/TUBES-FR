@@ -7,7 +7,7 @@ import colorama;
 colorama.init();
 def showTableTittle():
     title = figlet_format("PVT Table");
-    print(colorama.Fore.LIGHTYELLOW_EX + title); print(colorama.Style.RESET_ALL);
+    print(colorama.Fore.YELLOW + title); print(colorama.Style.RESET_ALL);
 
 properties_data = {
     'P (psia)': [12],
@@ -46,8 +46,8 @@ def openExcelApp():
                 os.system('start excel.exe "%s"' %excel_file_path);
                 print(colorama.Fore.BLUE + "Successfully opened the file!\n");
             except:
-                print(colorama.Fore.RED + "Something went wrong!\n")
+                print(colorama.Fore.RED + "Something went wrong!\n");
         else:
             print(colorama.Fore.RED + "File not found!\n");
     else:
-        print("Good bye then!\n");
+        print(colorama.Fore.LIGHTCYAN_EX + "Good bye then!\n");
