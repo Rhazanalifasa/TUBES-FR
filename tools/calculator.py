@@ -19,7 +19,7 @@ def calculatorLoop():
     
     
 ##### PROPERTIES #####
-from Calculation.Critical_prop import *;
+from Properties.Critical_prop import *;
 def calculateCriticalProperties(pressure:float):
     # Input the required data
     corr = input(colorama.Fore.WHITE + "Enter the correlation name: ");
@@ -40,7 +40,7 @@ def calculateCriticalProperties(pressure:float):
     Tpr_Value = Tpr(temperature, Tpc_Value); print(f"Tpr Value: {Tpr_Value}");
     Ppr_Value = Ppr(pressure, Ppc_Value); print(f"Ppr Value: {Ppr_Value}");
 
-from Calculation.Gas_Prop import *;
+from Properties.Gas_Prop import *;
 def calculateGasProperties(pressure:float):
     # Input the required data
     pass; 

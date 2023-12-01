@@ -54,7 +54,7 @@ def mainLoop():
         elif userInput == 3:
             enterTableSection();
         elif userInput == 4:
-            print(colorama.Fore.YELLOW + "Thanks for using this shit. Bye then!");
+            print(colorama.Fore.GREEN + "Thanks for using this shit. Bye then!");
             break;
         else:
             print("Invalid input!");
@@ -71,9 +71,12 @@ def enterCalculatorSection():
     
     calculatorLoop();
 
-
+from tools.table import openExcelApp;
 def enterTableSection():
     print("This is table section\n");
+    
+    openExcelApp();
+    
 
 # MAIN LOOPING
 if __name__ == '__main__':
