@@ -29,14 +29,14 @@ properties_data = {
 }
 
 df = pd.DataFrame(properties_data);
-with pd.ExcelWriter('PVT_Table.xlsx') as writer:
-    df.to_excel(writer, sheet_name='PVT Table');
         
 def openExcelApp():
     showTableTittle();
-    excel_file_path = 'C:\\Tubes FR\\TUBES-FR\\PVT_Table.xlsx';
-    userInput = input(colorama.Fore.CYAN + "Open Excel? [yes/no]").lower();
-    
+    excel_file_path = 'C:\\Users\\user\\Downloads\\PVT_Table.xlsx';
+    with pd.ExcelWriter(excel_file_path) as writer:
+        df.to_excel(writer, sheet_name='PVT Table');
+        
+    userInput = input(colorama.Fore.CYAN + "Open Excel? [yes/no] ").lower();
     if userInput == 'yes':
         if os.path.exists(excel_file_path):
             workbook = load_workbook(excel_file_path);
@@ -49,5 +49,7 @@ def openExcelApp():
                 print(colorama.Fore.RED + "Something went wrong!\n");
         else:
             print(colorama.Fore.RED + "File not found!\n");
+    elif userInput == 'no':
+        print(colorama.Fore.LIGHTCYAN_EX + f"Good bye then!\nMake sure you check the .xlsx file in {excel_file_path}\n");
     else:
-        print(colorama.Fore.LIGHTCYAN_EX + "Good bye then!\n");
+        print(colorama.Fore.RED + "Command not detected as a valid input! This session will be terminated to avoid errors\n");
