@@ -8,6 +8,12 @@ def showTittle():
     
     title = figlet_format("Calculator");
     print(colorama.Fore.MAGENTA + title); print(colorama.Style.RESET_ALL);
+    
+#### User Input Data ####
+userInputData = {
+    'gas_SG': [],
+    'temperature': []
+}
 
 ##### Calculator MAINLOOP #####
 def calculatorLoop():
@@ -28,6 +34,10 @@ def calculateCriticalProperties(pressure:float):
     M_CO2 = float(input("Enter CO2 mol: "));
     M_H2S = float(input("Enter H2S mol: "));
     M_N2 = float(input("Enter N2 mol: "));
+    
+    # Insert user input to userInputData
+    userInputData["gas_SG"].append(gas_SG);
+    userInputData["temperature"].append(temperature);
     
     # CRITICAL PROPERTIES
     print(colorama.Fore.LIGHTRED_EX, "\n");
@@ -97,7 +107,7 @@ def Miuw(pressure: float, temperature: float, TDS: float):
 # def calculateBWsat(pressure, temperature):
 
 #oil
-from Properties.Oil_Prop import *;
+from Properties import Oil_Prop;
 def calculateOilProperties():
     Bo  = float(input("Enter formation volume factor(sfc/stb): "));
     SGg = float(input("Enter Spesific Gravity gas: "));
@@ -109,15 +119,8 @@ def calculateOilProperties():
     T   = float(input("Enter: "));
     
     #Oil Properties
-    Rho_Standard_Value  = Rho_Standard(Bo , SGg , Rs , API)
-    Rho_Standing_Value  = Rho_Standing(Co, P, Pb , API, SGg, T, Rs)
-    Bo_Standing_Value   = Bo_Standing(SGg , API , T)
-    Rs_Glaso_Value = Rs_Glaso(API, T, P , Pb)
-    Rs_VB_Value = Rs_VB(API, T, P, Tsep, Psep, Pb, Pressure)
-    Rs_Standing_Value = 
-    Miu_Value = Miu(Rs, API, T)
-    Miu_VB_Value = Miu_VB(P, Pb, Rs, API, T)
-    MiuDeadOil_Standing_Value =
-    Co_VB_Value =
+    Rho_Standard_Value  = Oil_Prop.Rho_Standard(Bo , SGg , Rs , API)
+    Rho_Standing_Value  = Oil_Prop.Rho_Standing(Co, P, Pb , API, SGg, T, Rs)
+    Bo_Standing_Value   = Oil_Prop.Bo_Standing(SGg , API , T)
 
 

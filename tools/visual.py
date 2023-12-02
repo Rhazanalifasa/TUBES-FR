@@ -26,5 +26,3 @@ def createGraph(title, xLabel, yLabel, xValue, yValue):
     plt.plot(xValue, yValue);
     plt.show()
 # NOT FINISHED YET!
-sumbu_x = np.arange (0,5000,1)
-createGraph("Oil density",sumbu_x,'range yLabel',)
