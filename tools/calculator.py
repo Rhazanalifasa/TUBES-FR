@@ -43,7 +43,10 @@ def calculateCriticalProperties(pressure:float):
 from Properties.Gas_Prop import *;
 def calculateGasProperties(pressure:float):
     # Input the required data
-    pass; 
+    print("Input required properties.")
+    P = float(input("Enter pressure(psia): "))
+    T = float(input("Enter temperature(Fahrenheit): "))
+    Z = float(input("Enter compressibility factor(Z): "))
     
     
 
