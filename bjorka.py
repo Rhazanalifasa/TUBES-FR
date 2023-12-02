@@ -8,7 +8,6 @@ def Rs_Glaso(API, T , P , Pb):
         Pbubble = 10 ** (2.8869 - (14.1811 - (3.3093 * math.log(Pressure))) ** 0.5)
     Rs_Glaso = SG * ((((API ** 0.989) / ((T) ** 0.172)) * Pbubble) ** 1.2255)
     return Rs_Glaso
-
 def Rs_Standing(API, T, P, Pb): 
     SG = 141.5 / (API + 131.5)
     if P > Pb :
@@ -37,27 +36,9 @@ def Rs_VB(API, T, P, Tsep, Psep, Pb):
     Rs_VB = C1 * SG1 * (Pressure ** C2) * math.exp(C3 * (API / (T + 460)))
     return Rs_VB
 
-
-
 def Miu_DO(API, T):
     Z = 3.0324 - (0.02023 * API)
     Y = 10 ** Z
     X = Y * (T ** (-1.163))
     Miu_DO = (10 ** X) - 1
     return Miu_DO
-
-def MiuBRsat(API, T, Rs):
-    #saturated
-    A = 10.715 * (Rs + 100) ** -0.515 #RS TERGANTUNG KORELASI YANG DIPAKAI
-    B = 5.44 * (Rs + 150) ** -0.338
-    MiuBR = A * (Miu_DO(API, T)) ** B
-    return MiuBR
-
-def MiuBRunsat(API, T,Rs,P,Pb):
-    #unsaturated
-    #MIU VB
-    A = -3.9 * (10 ** -5) * P - 5
-    m = 2.6 * (P ** 1.187) * 10 ** A
-    Miu_BRunsat = MiuBRsat(Rs, API, T) * ((P / Pb) ** m)
-    return Miu_BRunsat
-
