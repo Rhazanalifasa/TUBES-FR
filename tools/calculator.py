@@ -48,15 +48,25 @@ def calculateGasProperties(pressure:float):
     T = float(input("Enter temperature(Fahrenheit): "))
     Z = float(input("Enter compressibility factor(Z): "))
     
-    
-
 def determineConditions(pressure:float) -> str:
     if pressure > 3000:
         return 'Undersaturated'
     else:
         return 'Saturated'
     
-
 #brine formation volume factor#
 from Properties.Brine_Formation_Volume_Factor import *;
-def calculateBWsat(pressure, temperature):
+# def calculateBWsat(pressure, temperature):
+
+from Properties.Oil_Prop import *;
+def calculateOilProperties():
+    Bo  = float(input("Enter formation volume factor(sfc/stb): "));
+    SGg = float(input("Enter Spesific Gravity gas: "));
+    Rs  = float(input("Enter Solution Gas Oil Ratio: "));
+    API = float(input("Enter API: "));
+    Co  = float(input("Enter : "));
+    P   = float(input("Enter Pressure: "));
+    Pb  = float(input("Enter: "));
+    T   = float(input("Enter: "));
+
+    
