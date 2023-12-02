@@ -60,18 +60,28 @@ from Properties.Brine_Formation_Volume_Factor import *;
 
 from Properties.Oil_Prop import *;
 def calculateOilProperties():
-    Bo  = float(input("Enter formation volume factor(sfc/stb): "));
-    SGg = float(input("Enter Spesific Gravity gas: "));
-    Rs  = float(input("Enter Solution Gas Oil Ratio: "));
-    API = float(input("Enter API: "));
-    Co  = float(input("Enter : "));
-    P   = float(input("Enter Pressure: "));
-    Pb  = float(input("Enter: "));
-    T   = float(input("Enter: "));
+    Bo      = float(input("Enter oil formation volume factor(sfc/stb): "));
+    SGg     = float(input("Enter Spesific Gravity gas: "));
+    Rs      = float(input("Enter Solution Gas Oil Ratio: "));
+    API     = float(input("Enter Oil API: "));
+    Co      = float(input("Enter Oil Compressibility: "));
+    P       = float(input("Enter Oil Pressure: "));
+    Pb      = float(input("Enter Oil Bubble Point Pressure: "));
+    T       = float(input("Enter Oil Temperature : "));
+    Tsep    = float(input("Enter Separator Temperature: "));
+    Psep    = float(input("Enter Separator Pressure: "));
+    Pressure = float(input("Enter Wellstream Pressure: "));
     
     #Oil Properties
     Rho_Standard_Value  = Rho_Standard(Bo , SGg , Rs , API)
     Rho_Standing_Value  = Rho_Standing(Co, P, Pb , API, SGg, T, Rs)
     Bo_Standing_Value   = Bo_Standing(SGg , API , T)
+    Rs_Glaso_Value = Rs_Glaso(API, T, P , Pb)
+    Rs_VB_Value = Rs_VB(API, T, P, Tsep, Psep, Pb, Pressure)
+    Rs_Standing_Value = 
+    Miu_Value = Miu(Rs, API, T)
+    Miu_VB_Value = Miu_VB(P, Pb, Rs, API, T)
+    MiuDeadOil_Standing_Value =
+    Co_VB_Value =
 
 
