@@ -1,3 +1,4 @@
+import numpy as np
 import matplotlib.pyplot as plt;
 import colorama;
 from pyfiglet import figlet_format;
@@ -23,5 +24,5 @@ def createGraph(title, xLabel, yLabel, xValue, yValue):
     plt.xlabel(xLabel);
     plt.ylabel(yLabel);
     plt.plot(xValue, yValue);
-    
+    plt.show()
 # NOT FINISHED YET!
