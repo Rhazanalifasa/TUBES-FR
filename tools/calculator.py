@@ -119,8 +119,8 @@ def calculateOilProperties():
     T   = float(input("Enter: "));
     
     #Oil Properties
-    Rho_Standard_Value  = Rho_Standard(Bo , SGg , Rs , API)
-    Rho_Standing_Value  = Rho_Standing(Co, P, Pb , API, SGg, T, Rs)
-    Bo_Standing_Value   = Bo_Standing(SGg , API , T)
+    Rho_Standard_Value  = Oil_Prop.Rho_Standard(Bo , SGg , Rs , API)
+    Rho_Standing_Value  = Oil_Prop.Rho_Standing(Co, P, Pb , API, SGg, T, Rs)
+    Bo_Standing_Value   = Oil_Prop.Bo_Standing(SGg , API , T)
 
 
