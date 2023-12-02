@@ -40,7 +40,7 @@ def calculateCriticalProperties(pressure:float):
     Tpr_Value = Tpr(temperature, Tpc_Value); print(f"Tpr Value: {Tpr_Value}");
     Ppr_Value = Ppr(pressure, Ppc_Value); print(f"Ppr Value: {Ppr_Value}\n");
 
-from Properties.Gas_Prop import *;
+from Properties import Gas_Prop
 def calculateGasProperties(pressure:float):
     # Input the required data
     print("Input required properties.")
@@ -54,6 +54,7 @@ def determineConditions(pressure:float) -> str:
     else:
         return 'Saturated'
     
+
 #brine formation volume factor#
 from Properties import Brine_Prop;
 
@@ -106,10 +107,19 @@ def calculateOilProperties():
     P   = float(input("Enter Pressure: "));
     Pb  = float(input("Enter: "));
     T   = float(input("Enter: "));
+    Tsep   = float(input("Enter: "));
+    Psep   = float(input("Enter: "));
+    
     
     #Oil Properties
     Rho_Standard_Value  = Rho_Standard(Bo , SGg , Rs , API)
     Rho_Standing_Value  = Rho_Standing(Co, P, Pb , API, SGg, T, Rs)
     Bo_Standing_Value   = Bo_Standing(SGg , API , T)
+    Rs_Glaso_Value      = Rs_Glaso(API, T , P , Pb)
+    Rs_Standing_Value   = Rs_Standing(API, T, P, Pb)
+    Rs_VB_Value         = Rs_VB(API, T, P, Tsep, Psep, Pb)
+    Miu_DP_Value         = Miu_DO(API, T)
+    Miu_BR_sat_Value       =MiuBRsat(API, T, Rs)
+    Miu_BR_unsat_Value      =MiuBRunsat(API, T,Rs,P,Pb)
 
 

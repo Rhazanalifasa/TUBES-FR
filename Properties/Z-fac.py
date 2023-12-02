@@ -101,3 +101,19 @@ def newton_raphson(f, x):
 		return x
 	else:
 		return newton_raphson(f,x)
+
+#HY
+def ZHY(Tpr, Ppr):
+    MaxIter = 150
+    galat = 0.000000000001
+    ybefore = 0
+    Yt = 0.01
+    DZ = 0.0001
+    T = 1 / Tpr
+    i = 0
+    while abs(Yt - ybefore) > galat and i < MaxIter:
+        ybefore = Yt
+        Yt = Yt - (Fy(Tpr, Ppr, Yt) * DZ / (Fy(Tpr, Ppr, Yt + DZ) - Fy(Tpr, Ppr, Yt)))
+        i = i + 1
+        
+    Z_hy = ((0.06125 * Ppr * T) / Yt) * math.exp(-1.2 * (1 - T) ^ 2)
