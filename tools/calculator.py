@@ -95,6 +95,7 @@ def Miuw(pressure: float, temperature: float, TDS: float):
 # from Properties.Brine_Formation_Volume_Factor import *;
 # def calculateBWsat(pressure, temperature):
 
+#oil
 from Properties.Oil_Prop import *;
 def calculateOilProperties():
     Bo  = float(input("Enter formation volume factor(sfc/stb): "));
