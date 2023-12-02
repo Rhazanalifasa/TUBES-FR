@@ -53,3 +53,4 @@ def openExcelApp():
         print(colorama.Fore.LIGHTCYAN_EX + f"Good bye then!\nMake sure you check the .xlsx file in {excel_file_path}\n");
     else:
         print(colorama.Fore.RED + "Command not detected as a valid input! This session will be terminated to avoid errors\n");
+

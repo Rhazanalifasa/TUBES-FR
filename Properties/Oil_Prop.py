@@ -18,10 +18,14 @@ def Rho_Standing(Co, P, Pb , API, SGg, T, Rs):
         Rho_Stand = Rho_Oil
         return Rho_Stand
 
+from korelasi_OIL import Rs_Standing
 #Bo Standing
-def Bo_Standing(SGg , API , T): # Saturated
+def Bo_Standing(SGg , API , T, Rs): # Saturated
     SG = 141.5 / (131.5 + API)
-    Bo_Standing = 0.9759 + (0.00012 * ((((SGg / SG) ** 0.5)) + (1.25 * (T-460))) ** 1.2)
+    Bo_Standing = 0.9759 + 0.00012 * (Rs*((SGg/SG)**0.5) + 1.25(T-460))**1.2
     return Bo_Standing
+
+
+
 
 
