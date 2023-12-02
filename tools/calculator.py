@@ -55,7 +55,44 @@ def determineConditions(pressure:float) -> str:
         return 'Saturated'
     
 #brine formation volume factor#
-from Properties.Brine_Formation_Volume_Factor import *;
+from Properties import Brine_Prop;
+
+def calculateBW(pressure : float, temperature : float):
+    # Input the required data
+    temperature = float(input("Enter the temperature: "))
+    pressure = float(input("Enter the pressure: "))
+    corr = input("Enter the corr: [Free/Sat]").lower()
+    
+    BW = Brine_Prop.BW(pressure, temperature, corr) ; print(f"BW_{corr}: {BW} RB/STB");
+
+    
+def calculateCSIsothermal(pressure: float, temperature: float, TDS: float, BW: float):
+    # Input the required data
+    temperature = float(input("Enter the temperature: "))
+    pressure = float(input("Enter the pressure: "))
+    TDS = float(input("Enter the TDS: "))
+    
+    CW = Brine_Prop.CW(pressure, temperature) ; print(f"CW: {CW} 1/PSI");
+    RSW = Brine_Prop.RSW(pressure, temperature, TDS) ; print(f"RSW: {RSW} SCF/STB");
+    Rhow = Brine_Prop.RhoW(TDS,BW) ; print(f"Rho: {Rhow} LBM/SCF");
+    
+    
+def Miuw(pressure: float, temperature: float, TDS: float):
+    # Input the required data
+    temperature = float(input("Enter the temperature: "))
+    pressure = float(input("Enter the pressure: "))
+    TDS = float(input("Enter the TDS: "))
+    corr = input("Enter the corr: [McCain/Beggs]").lower()
+    
+    Miuw = Brine_Prop.miuw(pressure, temperature, TDS, corr) ; print(f"Miuw_{corr}: {Miuw} CP");
+    
+
+
+
+    
+    
+    
+# from Properties.Brine_Formation_Volume_Factor import *;
 # def calculateBWsat(pressure, temperature):
 
 from Properties.Oil_Prop import *;
