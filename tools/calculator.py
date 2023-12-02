@@ -53,3 +53,7 @@ def determineConditions(pressure:float) -> str:
     else:
         return 'Saturated'
     
+
+#brine formation volume factor#
+from Properties.Brine_Formation_Volume_Factor import *;
+def calculateBWsat(pressure, temperature):
