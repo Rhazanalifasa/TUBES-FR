@@ -2,12 +2,14 @@ import math
 
 def Bg(P , T , Z ):
     Bg = 0.00502 * (Z * (T + 460) / P) * 1000
+    
     return Bg
 
 def RhoG(SG , P , T , Z ):
     R = 10.73
     Ma = SG * 28.97
     RhoG = (P * Ma) / (Z * R * (T + 460))
+    
     return RhoG
 
 def MiuG(SG , T , RhoG):
@@ -16,6 +18,7 @@ def MiuG(SG , T , RhoG):
     X = 3.5 + (986 / (T + 460)) + (0.01 * Ma)
     Y = 2.4 - (0.2 * X)
     MiuG = (10 ** -4) * K * (math.exp(X * (RhoG / 62.4)) ** Y)
+    
     return MiuG
 
 def Cg(Tpr , Ppr , Z , Ppc ):
@@ -36,5 +39,6 @@ def Cg(Tpr , Ppr , Z , Ppc ):
     dhozperrhor = T1 + (2 * T2 * Rhor) + (5 * T3 * Rhor ** 4) + (2 * T4 * Rhor * ((1 + A8 * Rhor ** 2) - (A8 ** 2 * Rhor ** 4)) * math.exp(-A8 * Rhor ** 2))
     Cpr = (1 / Ppr) - ((0.27 / (Z ** 2) * Tpr) * (dhozperrhor / (1 + (Rhor * dhozperrhor / Z))))
     Cg = Cpr / Ppc
+    
     return Cg
 

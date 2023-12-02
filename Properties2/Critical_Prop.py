@@ -35,4 +35,3 @@ def Tpr(T , Tc ):
 def Ppr(P , Pc ):
     Ppr = P / Pc
     return Ppr
-
