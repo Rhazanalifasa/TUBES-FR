@@ -32,7 +32,7 @@ df = pd.DataFrame(properties_data);
         
 def openExcelApp():
     showTableTittle();
-    excel_file_path = 'C:\\Users\\user\\Downloads\\PVT_Table.xlsx';
+    excel_file_path = 'C:\\PVT_Table.xlsx';
     with pd.ExcelWriter(excel_file_path) as writer:
         df.to_excel(writer, sheet_name='PVT Table');
         

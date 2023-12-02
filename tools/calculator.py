@@ -115,10 +115,10 @@ def calculateOilProperties():
     Bo_Standing_Value   = Bo_Standing(SGg , API , T)
     Rs_Glaso_Value = Rs_Glaso(API, T, P , Pb)
     Rs_VB_Value = Rs_VB(API, T, P, Tsep, Psep, Pb, Pressure)
-    Rs_Standing_Value = 
+    # Rs_Standing_Value = 
     Miu_Value = Miu(Rs, API, T)
     Miu_VB_Value = Miu_VB(P, Pb, Rs, API, T)
-    MiuDeadOil_Standing_Value =
-    Co_VB_Value =
+    # MiuDeadOil_Standing_Value =
+    # Co_VB_Value =
 
 
