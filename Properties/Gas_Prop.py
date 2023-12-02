@@ -38,4 +38,3 @@ def Cg(Tpr , Ppr , Z , Ppc ):
     Cg = Cpr / Ppc
     return Cg
 
-
