@@ -24,7 +24,7 @@ properties_data = {
     'Gas Density (lbm/cf)': [],
     'Brine Dencity (lbm/cf)': [],
     'Oil Viscocity (cP):': [],
-    'Gas Viscocity (cP)': [1],
+    'Gas Viscocity (cP)': [],
     'Brine Viscocity (cP)': []
 }
 
