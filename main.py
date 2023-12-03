@@ -52,7 +52,7 @@ def mainLoop():
             calculator.calculatorLoop();
         elif userInput == 2:
             from tools import visual
-            visual.createGraph();
+            visual.initiateGraph();
         elif userInput == 3:
             from tools import table
             table.openExcelApp();
