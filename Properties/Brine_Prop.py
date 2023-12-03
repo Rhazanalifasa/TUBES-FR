@@ -54,3 +54,15 @@ def CW(P, T):
     CW = (C1 + (C2 * T) + (C3 * T ** 2)) * (10 ** -6)
     
     return CW;
+
+def Water_Pbubble(temp):
+    temp = (temp - 32) * (5 / 9)
+    if temp >= 0 and temp <= 100:
+        a = 8.07131; b = 1730.63; c = 233.426
+    if temp > 100 and temp <= 374:
+        a = 8.14019; b = 1810.94; c = 244.485
+
+    pbubble = 10**(a - (b / (c + temp)))
+    pbubble = pbubble / 51.715 
+    
+    return pbubble

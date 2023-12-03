@@ -1,15 +1,10 @@
 import math
 #Oil Formation Volume Factor (Bo)
-def Bo_(SGg , API , T, Rs, SGo, corr:str): # Saturated
-    if corr.lower() == 'standing':
-      SG = 141.5 / (131.5 + API)
-      Bo_Standing = 0.9759 + 0.00012 * (Rs*((SGg/SG)**0.5) + 1.25(T-460))**1.2
-      return Bo_Standing;
-    elif corr.lower() == 'glaso':
-      Bob = (Rs(SGg/SGo)**0.526) + 0.968*(T-460)
-      A = -6.58511 + 2.91329 * math.log(math.log(Bob)) - 0.27683*((math.log(math.log(Bob)))**2)
-      Bo_Glaso = 1.0 + (10**A);
-      return Bo_Glaso;
+def Bo_Standing(SGg , API , T, Rs): # Saturated
+    SG = 141.5 / (131.5 + API);
+    Bo_Standing_ = 0.9759 + 0.00012 * (Rs * ((SGg/SG)**0.5) + 1.25 * (T-460)) **1.2;
+    
+    return Bo_Standing_;
 
 def Bo_Glaso(Rs, SGg, SGo, T):
     Bob = (Rs(SGg/SGo)**0.526) + 0.968*(T-460)
@@ -17,65 +12,64 @@ def Bo_Glaso(Rs, SGg, SGo, T):
     Bo_Glaso = 1.0 + (10**A);
     
     return Bo_Glaso;
+  
+def Oil_FVF(P_bubble, api, Rsb, sg2, temp2, pressure2):
+    """
+    Calculate Oil FVF
+    * Above bubble-point pressure
+      For range: unspecified
+      (Vazquez and Beggs, 1980)
+    * At and bubble-point pressure
+      For range: unspecified
+      (Levitan and Murtha, 1999)
+    """
+
+    import numpy as np
+    so = 141.5 / (api + 131.5)
+    Bo_bubble = 1 + ((0.0005 * Rsb) * ((sg2 / so)**0.25)) + ((0.0004*(temp2- 60)) / (so * sg2)) # temp in def F
+
+    if pressure2 < P_bubble: # use Vazquez-Beggs
+        if api <= 30: 
+          c1 = 0.0362
+          c2 = 1.0937
+          c3 = 25.7240
+          c4 = 4.677E-4
+          c5 = 1.751E-5
+          c6 = -1.811E-8
+          
+        if api > 30:
+          c1 = 0.0178
+          c2 = 1.187
+          c3 = 23.9310
+          c4 = 4.670E-4
+          c5 = 1.100E-5
+          c6 = 1.337E-9
+          
+        Rsc = (pressure2**c2) * c1 * sg2 * np.exp((c3 * api) / (temp2 + 459.67))
+        Bo = 1 + (c4 * Rsc) + (c5 * (temp2 - 60) * (api / sg2)) + (c6 * Rsc *(temp2 - 60) * (api / sg2)) # temp in deg F
+    
+    if pressure2 == P_bubble:
+        Bo = Bo_bubble
+    if pressure2 > P_bubble:
+        coil = ((5 * Rsb) + (17.2 * temp2) - (1180 * sg2) + (12.61 * api) - 1433) / (1E+05 * pressure2)
+        Bo = Bo_bubble * np.exp(coil * (P_bubble - pressure2))
+    if P_bubble != P_bubble:
+        Bo = np.nan  
+
+    return Bo
 
 #Gas Solubility
-def Rs_(API , T , P, corr:str, Pb): # Gas-Oil Ratio
-    if corr.lower() == 'glaso':
-      SG = 141.5 / (API + 131.5) 
-      if P > Pb:
-          Pressure = Pb
-      else:
-          Pressure = P
-        
-      Pbubble = 10 ** (2.8869 - (14.1811 - (3.3093 * math.log(Pressure))) ** 0.5)
-      Rs_Glaso = SG * ((((API ** 0.989) / ((T) ** 0.172)) * Pbubble) ** 1.2255)   
-      return Rs_Glaso
-    elif corr.lower() == 'vb':
-      SG = 141.5 / (API + 131.5)
-      if P > Pb:
-          Pressure = Pb
-      else:
-          Pressure = P
-      if API <= 30:
-          C1 = 0.0362
-          C2 = 1.0937
-          C3 = 25.724
-      else:
-          C1 = 0.0178
-          C2 = 1.187
-          C3 = 23.931
-
-      SG1 = SG * (1 + (5.912 * 0.00001 * API * Tsep * (math.log(Psep / 114.7) / math.log(10))))
-      Rs_VB = C1 * SG1 * (Pressure ** C2) * exp(C3 * (API / (T + 460)))
-      return Rs_VB
-    elif corr.lower() == 'standing':
-      SG = 141.5 / (API + 131.5)
-      if P > Pb :
-          Pressure = Pb
-      else:
-          Pressure = P
-      Rs_Standing = SG * (((Pressure / 18.2) + 1.4) * 10 ** ((0.0125 * API) - 0.00091 * (T))) ** 1.2048
-      return Rs_Standing
-
-def Rs_VB(API, T, P, Tsep, Psep, Pb, Pressure): # Gas Oil Ratio
-    SG = 141.5 / (API + 131.5)
+def Rs_Glaso(API , T , P,  Pb): # Gas-Oil Ratio
+    SG = 141.5 / (API + 131.5) 
     if P > Pb:
         Pressure = Pb
     else:
         Pressure = P
-    if API <= 30:
-        C1 = 0.0362
-        C2 = 1.0937
-        C3 = 25.724
-    else:
-        C1 = 0.0178
-        C2 = 1.187
-        C3 = 23.931
-
-    SG1 = SG * (1 + (5.912 * 0.00001 * API * Tsep * (math.log(Psep / 114.7) / math.log(10))))
-    Rs_VB = C1 * SG1 * (Pressure ** C2) * exp(C3 * (API / (T + 460)))
-    
-    return Rs_VB
+      
+    Pbubble = 10 ** (2.8869 - (14.1811 - (3.3093 * math.log(Pressure))) ** 0.5)
+    Rs_Glaso = SG * ((((API ** 0.989) / ((T) ** 0.172)) * Pbubble) ** 1.2255)  
+     
+    return Rs_Glaso
 
 def Rs_Standing(API, T, P, Pb): 
     SG = 141.5 / (API + 131.5)
@@ -88,7 +82,7 @@ def Rs_Standing(API, T, P, Pb):
     return Rs_Standing
 
 #Bubble-Point Pressure (Pb) *takutnya salah
-def oil_pbubble(Rsb, sg2, api, temp2):
+def Oil_Pbubble(Rsb, sg2, api, temp2):
   """
   Calculate Oil Bubble-Point Pressure
   For range: 20 < Rsb (scf/STB) < 2,070; 0.56 < sg < 1.18; 16 < api < 58; 70 < temp (°F) < 295 (err=0.7%)
@@ -233,12 +227,29 @@ def MiuBRunsat(API, T,Rs,P,Pb):
     return Miu_BRunsat;
 
 #Isothermal Compressibility Coefficient of Oil (Co)
-def CO_VB(API, T, Pb, Tsep, Psep, P, SGg):
-    Rsb = Rs_VB(API, T, Pb, Tsep, Psep, Pb) #Rs_VBDari sebelumnya
-    SG1 = SGg * (1 + (5.912 / 100000) * API * Tsep * (math.log(math.log(Psep / 114.7)) / math.log(math.log(10)))) #SGg ada di bagian sebelumnya, TSEP DAN PSEP INPUTAN.
-    if P > Pb:
-        Co_VB = (-1433 + 5 * Rsb + 17.2 * T - 1.18 * SG1 + 12.61 * API) / (100000 * P) #P ada di sebelumnya
-    else:
-        Co_VB = math.exp(-7.573 - 1.45 * math.log(P) / math.log(math.exp(1)) - 0.383 * math.log(Pb) / math.log(math.exp(1)) + 1.402 * math.log(T) / math.log(math.exp(1)) + 0.256 * math.log(API) / math.log(math.exp(1)) + 0.449 * math.log(Rsb) / math.log(math.exp(1)))
-        
-    return (Co_VB);
+def Oil_Compressibility(pressure2, P_bubble, temp2, api, Rsb, sg2):
+    """
+    Calculate Oil Isothermal Compressibility
+    * Below bubble-point pressure
+      For range: unspecified
+      (McCain, 1988)
+    * Above and at bubble-point pressure
+      For range: unspecified
+      (Vazquez and Beggs, 1980)
+    """
+    import numpy as np
+    from math import e
+
+    # oil isothermal compressibility
+    if pressure2 < P_bubble:
+        # use McCain
+        ln_coil = -7.573 - (1.45 * np.log(pressure2)) - (0.383 * np.log(P_bubble)) + (1.402 * np.log(temp2)) + (0.256 * np.log(api)) + (0.449 * np.log(Rsb))  
+        coil = np.exp(ln_coil)
+    if pressure2 >= P_bubble:
+        # use Vazquez-Beggs
+        coil = ((5 * Rsb) + (17.2 * temp2) - (1180 * sg2) + (12.61 * api) - 1433) / (1E+05 * pressure2)
+
+    if P_bubble != P_bubble:
+        coil = np.nan
+
+    return coil
