@@ -8,9 +8,11 @@ def showVisualTitle():
     title = figlet_format("Graphics");
     print(colorama.Fore.LIGHTGREEN_EX + title); print(colorama.Style.RESET_ALL);
     
-    print(colorama.Fore.RED + "[1]", colorama.Fore.YELLOW + "Pressure & Gas FVF\t\t", colorama.Fore.RED + "[6]", colorama.Fore.YELLOW + "Pressure & Gas Density")
-    print(colorama.Fore.RED + "[2]", colorama.Fore.YELLOW + "Pressure & Water FVF\t\t", colorama.Fore.RED + "[7]", colorama.Fore.YELLOW + "Pressure & Gas-Water Ratio")
-    print(colorama.Fore.RED + "[3]", colorama.Fore.YELLOW + "Pressure & Water Viscocity\t\t", colorama.Fore.RED + "[8]", colorama.Fore.YELLOW + "Pressure & Water Isothermal Compressibility")
+    print(colorama.Fore.RED + "[1]", colorama.Fore.YELLOW + "Pressure & Gas FVF\t", colorama.Fore.RED + "[6]", colorama.Fore.YELLOW + "Pressure & Gas Density")
+    print(colorama.Fore.RED + "[2]", colorama.Fore.YELLOW + "Pressure & Water FVF\t", colorama.Fore.RED + "[7]", colorama.Fore.YELLOW + "Pressure & Gas-Water Ratio")
+    print(colorama.Fore.RED + "[3]", colorama.Fore.YELLOW + "Pressure & Water Viscocity\t", colorama.Fore.RED + "[8]", colorama.Fore.YELLOW + "Pressure & Water Isothermal Compressibility")
+    print(colorama.Fore.RED + "[4]", colorama.Fore.YELLOW + "Pressure & Ppr\t", colorama.Fore.RED + "[9]", colorama.Fore.YELLOW + "Pressure & Oil FVF")
+    print(colorama.Fore.RED + "[5]", colorama.Fore.YELLOW + "Pressure & GOR\t", colorama.Fore.RED + "[10]", colorama.Fore.YELLOW + "Pressure & ")
 
 def addGraphFunc(func):
     def wrapper(title, xLabel, yLabel, xValue, yValue):

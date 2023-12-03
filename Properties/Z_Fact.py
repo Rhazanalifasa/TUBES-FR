@@ -46,8 +46,8 @@ Tpr = 2.5
 
 x0 = 0.001 # initial x buat root-finding newton-raphson
 
-f = hall_yarborough(Ppr, Tpr) # sama aja f = lambda Y: ...
-Y_estimate = newton_raphson(f, x0)
+# f = hall_yarborough(Ppr, Tpr) # sama aja f = lambda Y: ...
+# Y_estimate = newton_raphson(f, x0)
 
 # print("Kasus:")
 # # print(f"P reservoir: {P_res} psia")

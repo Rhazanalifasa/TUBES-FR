@@ -1,4 +1,3 @@
-from tools import visual, table, calculator;
 from pyfiglet import figlet_format;
 import colorama;
 
@@ -49,10 +48,13 @@ def mainLoop():
         showMainMenu();
         userInput = int(input("Enter your choice: "));
         if userInput == 1:
+            from tools import calculator
             calculator.calculatorLoop();
         elif userInput == 2:
+            from tools import visual
             visual.createGraph();
         elif userInput == 3:
+            from tools import table
             table.openExcelApp();
         elif userInput == 4:
             print(colorama.Fore.GREEN + "Thanks for using this shit. Bye then!");
