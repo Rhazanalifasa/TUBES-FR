@@ -22,7 +22,7 @@ def openExcelApp():
     excel_file = 'PVT_Table.xlsx';
     excel_file_path = os.path.join(current_directory, excel_file);
     with pd.ExcelWriter(excel_file_path) as writer:
-        df.to_excel(writer, sheet_name='PVT Table');
+        df.to_excel(writer, sheet_name='PVT Table', index=False, engine='openpyxl');
         
     userInput = input(colorama.Fore.CYAN + "Open Excel? [yes/no] ").lower();
     if userInput == 'yes':
