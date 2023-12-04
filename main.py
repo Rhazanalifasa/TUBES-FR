@@ -1,5 +1,6 @@
 from pyfiglet import figlet_format;
 import colorama;
+colorama.init();
 
 oilProperties = {
     # property: correlations
@@ -30,10 +31,18 @@ brineProperties = {
     "Cw": []
 }
 
+warn = figlet_format("WARNING!", font = "banner3-D");
+print('\n', colorama.Fore.YELLOW + warn);
+print(colorama.Fore.WHITE + "To run the Python code, you need this 3rd module: ")
+with open('requirements.txt', 'r') as file:
+    count = 1
+    for line in file:
+        line = line.rstrip();
+        print(f"{count}. {line}");
+        count+=1;
+isKeepGoing = input("\nKeep going? [yes/no] "); print('\n');
+
 ######### Initiate Menu ##########
-colorama.init();
-title = figlet_format("PVT Calculator");
-print(colorama.Fore.RED + title); print(colorama.Style.RESET_ALL);
 def showMainMenu():
     print(colorama.Fore.GREEN + "[1]", colorama.Fore.CYAN + "PVT Calculator");
     print(colorama.Fore.GREEN + "[2]", colorama.Fore.CYAN + "Graphics");
@@ -57,7 +66,7 @@ def mainLoop():
             from tools import table
             table.openExcelApp();
         elif userInput == 4:
-            print(colorama.Fore.GREEN + "Thanks for using this shit. Bye then!");
+            print(colorama.Fore.GREEN + "Thanks for using this code. Bye then!");
             break;
         else:
             print("Invalid input!");
@@ -67,5 +76,10 @@ def mainLoop():
 
 # MAIN LOOPING
 if __name__ == '__main__':
-    mainLoop();
+    if isKeepGoing == 'yes':
+        title = figlet_format("PVT Calculator");
+        print(colorama.Fore.RED + title); print(colorama.Style.RESET_ALL);
+        mainLoop();
+    else:
+        print(colorama.Fore.GREEN + "Make sure you have installing all module above");
     
