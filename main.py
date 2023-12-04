@@ -10,7 +10,7 @@ with open('requirements.txt', 'r') as file:
         line = line.rstrip();
         print(f"{count}. {line}");
         count+=1;
-isInstallModule = input("\nThis section will install the module required automatically. Install the module? [yes/no] ")
+isInstallModule = input("\nThis section will install the required module automatically. Install the module? [yes/no] ")
 if isInstallModule == "yes":
     for module in library_to_install:
         subprocess.check_call(["python", "-m", "pip", "install", module]);
@@ -76,7 +76,8 @@ def mainLoop():
             from tools import table
             table.openExcelApp();
         elif userInput == 4:
-            print(colorama.Fore.GREEN + "Thanks for using this code. Bye then!");
+            bye = figlet_format("BYE!", font = "banner3-D"); print(colorama.Fore.CYAN + bye);
+            print(colorama.Fore.GREEN + "\nThanks for using this code. Bye then!");
             break;
         else:
             print("Invalid input!");
