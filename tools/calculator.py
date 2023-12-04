@@ -173,7 +173,7 @@ def calculateOilProperties(pressure:float):
     OilPropList.append(RhoO_Value);
     
     # Calculate Oil Viscocity
-    Miu_Value = Oil_Prop.oil_mu(pressure, Pb_Value, gas_SG, Oil_API, temperature, Rs_Value);
+    Miu_Value = Oil_Prop.Oil_Miu(pressure, Pb_Value, gas_SG, Oil_API, temperature, Rs_Value);
     print(f"Oil Viscocity                : {Miu_Value} cP"); 
     OilPropList.append(Miu_Value);
 
