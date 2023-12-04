@@ -73,8 +73,8 @@ def calculateCriticalProperties(pressure:float):
     print(f"Ppr Value      : {Ppr_Value}");
     
     # Insert user input to PropertiesData
-    PropertiesData["gas_SG"] = gas_SG;
-    PropertiesData["temperature"] = temperature;
+    gas_SG = gas_SG;
+    temperature = temperature;
     PropertiesData["Gas Molecule"] = [M_CO2, M_H2S, M_N2];
     PropertiesData["Critical Value"] = [Ppc_Value, Tpc_Value, Ppcz_Value, Tpcz_Value, Ppr_Value, Tpr_Value, corr];
 
@@ -90,13 +90,13 @@ def calculateGasProperties(pressure:float):
     Z_Value = Z_Fact.Z(PropertiesData["Critical Value"][4], PropertiesData["Critical Value"][5], Y_estimate); 
     print(f"Z Value             : {Z_Value}");
     
-    Bg_Value = Gas_Prop.Bg(pressure, PropertiesData["temperature"], Z_Value); 
+    Bg_Value = Gas_Prop.Bg(pressure, temperature, Z_Value); 
     print(f"Bg_Value            : {Bg_Value}"); GasPropList.append(Bg_Value);
     
-    RhoG_Value = Gas_Prop.RhoG(PropertiesData.get("gas_SG"), pressure, PropertiesData.get("temperature"), Z_Value); 
+    RhoG_Value = Gas_Prop.RhoG(gas_SG, pressure, temperature, Z_Value); 
     print(f"RhoG Value          : {RhoG_Value}"); GasPropList.append(RhoG_Value);
     
-    MiuG_Value = Gas_Prop.MiuG(PropertiesData.get("gas_SG"), PropertiesData["temperature"], RhoG_Value); 
+    MiuG_Value = Gas_Prop.MiuG(gas_SG, temperature, RhoG_Value); 
     print(f"MiuG Value          : {MiuG_Value}"); GasPropList.append(MiuG_Value);
     
     Cg_Value = Gas_Prop.Cg(PropertiesData["Critical Value"][5], PropertiesData["Critical Value"][4], Z_Value, PropertiesData["Critical Value"][0]); 
@@ -114,22 +114,22 @@ def calculateBrineProperties(pressure:float):
 
     # BRINE PROPERTIES
     print('\n', colorama.Fore.LIGHTBLUE_EX + "========== Brine PVT Correlation ==========");
-    Bw_Value = Brine_Prop.BW(pressure, PropertiesData["temperature"]); 
+    Bw_Value = Brine_Prop.BW(pressure, temperature); 
     print(f"Water FVF                 : {Bw_Value} RB/STB"); BrinePropList.append(Bw_Value);
     
-    Pbubble_water = Brine_Prop.Water_Pbubble(PropertiesData["temperature"]); 
+    Pbubble_water = Brine_Prop.Water_Pbubble(temperature); 
     print(f"Bubble Point Pressure     : {Pbubble_water} psia");
     
-    Rsw_Value = Brine_Prop.RSW(pressure, PropertiesData["temperature"], TDS); 
+    Rsw_Value = Brine_Prop.RSW(pressure, temperature, TDS); 
     print(f"Solution Gas-Water Ratio  : {Rsw_Value} scf/STB"); BrinePropList.append(Rsw_Value);
     
     RhoW_Value = Brine_Prop.RhoW(TDS, Bw_Value); BrinePropList.append(RhoW_Value);
     print(f"Water Density             : {RhoW_Value} g/cc"); 
     
-    MiuW_Value = Brine_Prop.MiuW(pressure, PropertiesData["temperature"], TDS, corr_brine); 
+    MiuW_Value = Brine_Prop.MiuW(pressure, temperature, TDS, corr_brine); 
     print(f"Water Viscocity           : {MiuW_Value} cP"); BrinePropList.append(MiuW_Value);
     
-    Cw_Value = Brine_Prop.CW(pressure, PropertiesData["temperature"]); 
+    Cw_Value = Brine_Prop.CW(pressure, temperature); 
     print(f"Isothermal Compressibility: {Cw_Value} microsip"); BrinePropList.append(Cw_Value);
     
     PropertiesData["Brine Properties"] = BrinePropList;
@@ -146,38 +146,38 @@ def calculateOilProperties(pressure:float):
     # OIL PROPERTIES
     print('\n', colorama.Fore.LIGHTGREEN_EX + "========== Oil PVT Correlation ==========");
     # Calculate Pb
-    Pb_Value = Oil_Prop.Oil_Pbubble(Rsb, PropertiesData["gas_SG"], Oil_API, PropertiesData["temperature"]);
+    Pb_Value = Oil_Prop.Oil_Pbubble(Rsb, gas_SG, Oil_API, temperature);
     print(f"Bubble Point Pressure        : {Pb_Value} psi ({condition(pressure, Pb_Value)})"); 
     
     # Calculate Isothermal Oil Compressibility
-    Co_Value = Oil_Prop.Oil_Compressibility(pressure, Pb_Value, PropertiesData["temperature"], Oil_API, Rsb, PropertiesData["gas_SG"]);
+    Co_Value = Oil_Prop.Oil_Compressibility(pressure, Pb_Value, temperature, Oil_API, Rsb, gas_SG);
     print(f"Isothermal Compressibility   : {Co_Value} microsip"); 
     OilPropList.append(Co_Value);
     
     # Calculate Solution Gas-Oil Ratio
-    Rs_Value = Oil_Prop.Rs_Standing(Oil_API, PropertiesData["temperature"], pressure, Pb_Value);
+    Rs_Value = Oil_Prop.Rs_Standing(Oil_API, temperature, pressure, Pb_Value);
     print(f"Gas-Oil Ratio                : {Rs_Value} scf/STB"); 
     OilPropList.append(Rs_Value);
     
     # Calculate Oil FVF
-    Bo_Value = Oil_Prop.Oil_FVF(Pb_Value, Oil_API, Rsb, PropertiesData["gas_SG"], PropertiesData["temperature"], pressure);
+    Bo_Value = Oil_Prop.Oil_FVF(Pb_Value, Oil_API, Rsb, gas_SG, temperature, pressure);
     print(f"Oil FVF                      : {Bo_Value} RB/STB"); 
     OilPropList.append(Bo_Value);
     
     # Calculate Oil Density
     if corr_Rho == 1:
-        RhoO_Value = Oil_Prop.Rho_Standard(Bo_Value, PropertiesData["gas_SG"], Rs_Value, Oil_API); 
+        RhoO_Value = Oil_Prop.Rho_Standard(Bo_Value, gas_SG, Rs_Value, Oil_API); 
     elif corr_Rho == 2:
-        RhoO_Value = Oil_Prop.Rho_Standing(Co_Value, pressure, Pb_Value, Oil_API, PropertiesData["gas_SG"], PropertiesData["temperature"], Rs_Value);
+        RhoO_Value = Oil_Prop.Rho_Standing(Co_Value, pressure, Pb_Value, Oil_API, gas_SG, temperature, Rs_Value);
     print(f"Oil Density                  : {RhoO_Value} g/cc");
     OilPropList.append(RhoO_Value);
     
     # Calculate Oil Viscocity
-    Miu_Value = Oil_Prop.oil_mu(pressure, Pb_Value, PropertiesData["gas_SG"], Oil_API, PropertiesData["temperature"], Rs_Value);
+    Miu_Value = Oil_Prop.oil_mu(pressure, Pb_Value, gas_SG, Oil_API, temperature, Rs_Value);
     print(f"Oil Viscocity                : {Miu_Value} cP"); 
     OilPropList.append(Miu_Value);
 
-    Miu_od_Value = Oil_Prop.Miu_DO(Oil_API, PropertiesData["temperature"]);
+    Miu_od_Value = Oil_Prop.Miu_DO(Oil_API, temperature);
     print(f"Dead-Oil Viscocity           : {Miu_od_Value} cP");
     
     PropertiesData["Oil Properties"] = OilPropList;
@@ -204,7 +204,7 @@ properties_data = {
     'Rsw (SCF/STB)': [], # Brine
     'Cw (microsip)': [], # Brine
     'Co (microsip)': [], # Oil
-    'Cg (microsip)': [], # Gas
+    # 'Cg (microsip)': [], # Gas
     'Conditions': [], 
     'Z (vol/vol)': [], 
     'P (psia)': [],
@@ -223,60 +223,63 @@ def initiateTable():
     for pressure in pressureList:
         properties_data["P (psia)"].append(pressure);
         
-        Pb_Value = Oil_Prop.Oil_Pbubble(Rsb, PropertiesData["gas_SG"], Oil_API, PropertiesData["temperature"]);
-        Bo_ = Oil_Prop.Oil_FVF(Pb_Value, Oil_API, Rsb, PropertiesData["gas_SG"], PropertiesData["temperature"], pressure);
+        Pb_Value = Oil_Prop.Oil_Pbubble(Rsb, gas_SG, Oil_API, temperature);
+        Bo_ = Oil_Prop.Oil_FVF(Pb_Value, Oil_API, Rsb, gas_SG, temperature, pressure);
         properties_data['Bo (RB/STB)'].append(Bo_);
         
-        Rs_ = Oil_Prop.Rs_Standing(Oil_API, PropertiesData["temperature"], pressure, Pb_Value);
+        Rs_ = Oil_Prop.Rs_Standing(Oil_API, temperature, pressure, Pb_Value);
         properties_data['Rs (MSCF/STB)'].append(Rs_);
         
-        f = Z_Fact.hall_yarborough(PropertiesData["Critical Value"][4], PropertiesData["Critical Value"][5]);
-        Y_estimate = Z_Fact.newton_raphson(f, x=0.25);
-        Z_Value = Z_Fact.Z(PropertiesData["Critical Value"][4], PropertiesData["Critical Value"][5], Y_estimate);
-        Bg_ = Gas_Prop.Bg(pressure, PropertiesData["temperature"], Z_Value);
+        Ppc_Value = Critical_Prop.Ppc_(gas_SG, corr);
+        Tpc_Value = Critical_Prop.Tpc_(gas_SG, corr);
+        Tpr_Value = Critical_Prop.Tpr(temperature, Tpc_Value); 
+        Ppr_Value = Critical_Prop.Ppr(pressure, Ppc_Value);
+        f = Z_Fact.hall_yarborough(Ppr_Value, Tpr_Value);
+        Y_estimate = Z_Fact.newton_raphson(f, x=0.25); 
+        Z_Value = Z_Fact.Z(Ppr_Value, Tpr_Value, Y_estimate);
+        properties_data['Z (vol/vol)'].append(Z_Value);
+        
+        Bg_ = Gas_Prop.Bg(pressure, temperature, Z_Value);
         properties_data['Bg (RB/MSCF)'].append(Bg_);
         
-        Bw_ = Brine_Prop.BW(pressure, PropertiesData["temperature"]);
+        Bw_ = Brine_Prop.BW(pressure, temperature);
         properties_data['Bw (RB/STB)'].append(Bw_);
         
-        Rsw_ = Brine_Prop.RSW(pressure, PropertiesData["temperature"], TDS);
+        Rsw_ = Brine_Prop.RSW(pressure, temperature, TDS);
         properties_data['Rsw (SCF/STB)'].append(Rsw_);
         
-        Cw_ = Brine_Prop.CW(pressure, PropertiesData["temperature"]);
+        Cw_ = Brine_Prop.CW(pressure, temperature);
         properties_data["Cw (microsip)"].append(Cw_);
         
-        Co_ = Oil_Prop.Oil_Compressibility(pressure, Pb_Value, PropertiesData["temperature"], Oil_API, Rsb, PropertiesData["gas_SG"]);
+        Co_ = Oil_Prop.Oil_Compressibility(pressure, Pb_Value, temperature, Oil_API, Rsb, gas_SG);
         properties_data["Co (microsip)"].append(Co_);
         
-        Cg_ = Gas_Prop.Cg(PropertiesData["Critical Value"][5], PropertiesData["Critical Value"][4], Z_Value, PropertiesData["Critical Value"][0]);
-        properties_data["Cg (microsip)"].append(Cg_); 
+        # Cg_ = Gas_Prop.Cg(Tpr_Value, Ppr_Value, Z_Value, Ppc_Value);
+        # properties_data["Cg (microsip)"].append(Cg_); 
         
         Conditions_ = condition(pressure, Pb_Value);
         properties_data['Conditions'].append(Conditions_);
         
-        Z_ = Z_Value
-        properties_data['Z (vol/vol)'].append(Z_);
-        
-        Co_ = Oil_Prop.Oil_Compressibility(pressure, Pb_Value, PropertiesData["temperature"], Oil_API, Rsb, PropertiesData["gas_SG"]);
+        Co_ = Oil_Prop.Oil_Compressibility(pressure, Pb_Value, temperature, Oil_API, Rsb, gas_SG);
         if corr_Rho == 1:
-            RhoO_Value = Oil_Prop.Rho_Standard(Bo_, PropertiesData["gas_SG"], Rs_, Oil_API); 
+            RhoO_Value = Oil_Prop.Rho_Standard(Bo_, gas_SG, Rs_, Oil_API); 
         elif corr_Rho == 2:
-            RhoO_Value = Oil_Prop.Rho_Standing(Co_, pressure, Pb_Value, Oil_API, PropertiesData["gas_SG"], PropertiesData["temperature"], Rs_);
+            RhoO_Value = Oil_Prop.Rho_Standing(Co_, pressure, Pb_Value, Oil_API, gas_SG, temperature, Rs_);
         properties_data['Oil Density (lbm/cf)'].append(RhoO_Value);
         
-        Gas_Den = Gas_Prop.RhoG(PropertiesData.get("gas_SG"), pressure, PropertiesData.get("temperature"), Z_Value); 
+        Gas_Den = Gas_Prop.RhoG(gas_SG, pressure, temperature, Z_Value); 
         properties_data['Gas Density (lbm/cf)'].append(Gas_Den);
         
         Brine_Den = Brine_Prop.RhoW(TDS, Bw_);
         properties_data['Brine Dencity (lbm/cf)'].append(Brine_Den);
         
-        Oil_Viscos = Oil_Prop.oil_mu(pressure, Pb_Value, PropertiesData["gas_SG"], Oil_API, PropertiesData["temperature"], Rs_);
+        Oil_Viscos = Oil_Prop.Oil_Miu(pressure, Pb_Value, gas_SG, Oil_API, temperature, Rs_);
         properties_data['Oil Viscocity (cP)'].append(Oil_Viscos);
         
-        Gas_Viscos = Gas_Prop.MiuG(PropertiesData.get("gas_SG"), PropertiesData["temperature"], Gas_Den); 
+        Gas_Viscos = Gas_Prop.Gas_Miu(temperature, Gas_Den, gas_SG);
         properties_data['Gas Viscocity (cP)'].append(Gas_Viscos);
         
-        Brine_Viscos = Brine_Prop.MiuW(pressure, PropertiesData["temperature"], TDS, corr_brine);
+        Brine_Viscos = Brine_Prop.MiuW(pressure, temperature, TDS, corr_brine);
         properties_data['Brine Viscocity (cP)'].append(Brine_Viscos);
         
 

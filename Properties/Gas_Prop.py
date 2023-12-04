@@ -21,7 +21,7 @@ def MiuG(SG , T , RhoG):
     
     return MiuG
 
-def Cg(Tpr , Ppr , Z , Ppc ):
+def Cg(Tpr , Ppr , Z , Ppc):
     A1 = 0.31506237
     A2 = -1.0467099
     A3 = -0.5783272
@@ -42,3 +42,34 @@ def Cg(Tpr , Ppr , Z , Ppc ):
     
     return Cg
 
+def Gas_Miu(temp, rhogas, sg):
+    import numpy as np
+
+    if temp > 100 and temp < 340:
+        temp = temp + 459.67
+        Mg = 28.97 * sg
+        rhogas_lee = rhogas * 0.0160185 
+        K = ((0.00094 + 2E-06)*(temp**1.5)) / (209 + 19*Mg + temp)
+        x = 3.5 + (986 / temp) + (0.01 * Mg)
+        y = 2.4 - 0.2*x  
+        viscogas = K * np.exp(x * (rhogas_lee**y))
+    
+    else:
+        viscogas = np.nan
+    return viscogas
+
+def Gas_Compressibility(T_pr, P_pr, rho_pr, z, P_pc):
+    import numpy as np
+
+    a1 = 0.3265; a2 = -1.0700; a3 = -0.5339; a4 = 0.01569; a5 = -0.05165; a6 = 0.5475
+    a7 = -0.7361; a8 = 0.1844; a9 = 0.1056; a10 = 0.6134; a11 = 0.7210
+
+    do = ((a1 + (a2/T_pr) + (a3/T_pr**3) +(a4/T_pr**4) + (a5/T_pr**5)) * rho_pr) + \
+        (2 * ((a6 + (a7/T_pr) + (a8/T_pr**2))) * rho_pr**2) - \
+        (5 * a9 * (((a7/T_pr) + (a8/T_pr**2))) * rho_pr**4) + (1 + (a11 * rho_pr**2) - (a11 * rho_pr**2)**2) \
+        * ((2 * a10 * rho_pr / T_pr**3)*np.exp(-a11 * rho_pr**2))
+
+    c_pr_analytical = (1 / P_pr) - ((0.27 / (z**2 * T_pr)) * (do / (1 + ((rho_pr / z) * do))))
+    cgas_analytical = c_pr_analytical / P_pc
+    
+    return(cgas_analytical);

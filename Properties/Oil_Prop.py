@@ -127,7 +127,7 @@ def Rho_Standing(Co, P, Pb , API, SGg, T, Rs): #Temperatur yang digunakan masih 
 # print(Rho_Standing(1,2,3,44,5,6,7))
 
 #Oil Viscosity 
-def oil_mu(pressure2, P_bubble, sg2, api, temp2, Rs):
+def Oil_Miu(pressure2, P_bubble, sg2, api, temp2, Rs):
   """
   Calculate Oil Viscosity
   * Below and at bubble-point pressure
