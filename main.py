@@ -1,3 +1,22 @@
+import subprocess;
+
+library_to_install = ["pandas", "pyfiglet", "colorama", "numpy", "openpyxl", "matplotlib"];
+
+print("\n========== WARNING!! ==========\n");
+print("To run the Python code, you have to install this 3rd module: ")
+with open('requirements.txt', 'r') as file:
+    count = 1
+    for line in file:
+        line = line.rstrip();
+        print(f"{count}. {line}");
+        count+=1;
+isInstallModule = input("\nThis section will install the module required automatically. Install the module? [yes/no] ")
+if isInstallModule == "yes":
+    for module in library_to_install:
+        subprocess.check_call(["python", "-m", "pip", "install", module]);
+else:
+    print("\nThe code will not be executed to avoid errors occurring when running the code ...");
+
 from pyfiglet import figlet_format;
 import colorama;
 colorama.init();
@@ -30,17 +49,6 @@ brineProperties = {
     "MiuW": ["Mc Chain", "Beggs"],
     "Cw": []
 }
-
-warn = figlet_format("WARNING!", font = "banner3-D");
-print('\n', colorama.Fore.YELLOW + warn);
-print(colorama.Fore.WHITE + "To run the Python code, you need this 3rd module: ")
-with open('requirements.txt', 'r') as file:
-    count = 1
-    for line in file:
-        line = line.rstrip();
-        print(f"{count}. {line}");
-        count+=1;
-isKeepGoing = input("\nKeep going? [yes/no] "); print('\n');
 
 ######### Initiate Menu ##########
 def showMainMenu():
@@ -76,10 +84,10 @@ def mainLoop():
 
 # MAIN LOOPING
 if __name__ == '__main__':
-    if isKeepGoing == 'yes':
+    if isInstallModule == 'yes':
         title = figlet_format("PVT Calculator");
         print(colorama.Fore.RED + title); print(colorama.Style.RESET_ALL);
         mainLoop();
     else:
-        print(colorama.Fore.GREEN + "Make sure you have installing all module above");
+        print("Make sure you have installing all module above");
     
