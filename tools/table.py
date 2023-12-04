@@ -16,9 +16,11 @@ def openExcelApp():
     showTableTittle();
     
     data = calculator.properties_data
-    
     df = pd.DataFrame(data)
-    excel_file_path = 'C:\\PVT_Table.xlsx';
+    
+    current_directory = os.getcwd();
+    excel_file = 'PVT_Table.xlsx';
+    excel_file_path = os.path.join(current_directory, excel_file);
     with pd.ExcelWriter(excel_file_path) as writer:
         df.to_excel(writer, sheet_name='PVT Table');
         
