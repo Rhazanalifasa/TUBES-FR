@@ -14,12 +14,14 @@ isInstallModule = input("\nThis section will install the module required automat
 if isInstallModule == "yes":
     for module in library_to_install:
         subprocess.check_call(["python", "-m", "pip", "install", module]);
+        
+    from pyfiglet import figlet_format;
+    import colorama;
+    colorama.init();
 else:
     print("\nThe code will not be executed to avoid errors occurring when running the code ...");
 
-from pyfiglet import figlet_format;
-import colorama;
-colorama.init();
+
 
 oilProperties = {
     # property: correlations
